@@ -14,37 +14,11 @@ function searchWeather() {
     fetch(url + city + "&appid=" + key)
         // this uses the response in the promise when it arrives
         .then(response => {
-            if (!response.ok) {
-                if (response.status === 404) {
-                    document.getElementById("city").innerHTML = city + " er ikke en by";
-                    document.getElementById("temperature").innerHTML = "";
-                } else {
-                    document.getElementById("city").innerHTML = "Det har skjedd en feil";
-                    document.getElementById("temperature").innerHTML = "";
-                }
-                throw new Error('Network response was not ok');
-            }
+            handleError(response);
             return response.json();
         })
         .then(data => {
-            imageInfo = data.weather[0].main;
-            console.log(imageInfo)
-            
-            if (imageInfo === "Clouds") {
-                document.getElementById("weather-img").src = "images/cloudy.png";
-            } else if (imageInfo === "Clear") {
-                document.getElementById("weather-img").src = "images/sunny.png";
-            } else if (imageInfo === "Snow") {
-                document.getElementById("weather-img").src = "images/snowy.png";
-            } else if (imageInfo === "Rain") {
-                document.getElementById("weather-img").src = "images/rainy.png";
-            } else if (imageInfo === "Drizzle") {
-                document.getElementById("weather-img").src = "images/rainy.png";
-            } else if (imageInfo === "Thunderstorm") {
-                document.getElementById("weather-img").src = "images/lightning.png";
-            }
-
-            
+            changeImage(data);
             document.getElementById("city").innerHTML = data.name;
             document.getElementById("temperature").innerHTML = Math.round(data.main.temp) + "°c";
         })
@@ -53,15 +27,40 @@ function searchWeather() {
         });
 }
 
+function handleError(response) {
+    if (!response.ok) {
+        if (response.status === 404) {
+            document.getElementById("city").innerHTML = city + " er ikke en by";
+            
+        } else {
+            document.getElementById("city").innerHTML = "Det har skjedd en feil";
+        }
+        document.getElementById("temperature").innerHTML = "";
+        document.getElementById("weather-img").src = "";
+        throw new Error('Network response was not ok');
+    }
+}
 
-
-
-    //fetch("https://api.geoapify.com/v1/geocode/autocomplete?text=Mosco&apiKey=d83bce3487a14cf1a0b7e03162dc0e34")
-        //.then(response => response.json())
-        //.then(result => console.log(result))
-        //.catch(error => console.log('error', error));
-
-
-
+function changeImage(data) {
+    imageInfo = data.weather[0].main;
+    if (imageInfo === "Clouds") {
+        description = data.weather[0].description;
+        if (description === "few clouds") {
+            document.getElementById("weather-img").src = "images/partly_cloudy.png";
+        } else {
+            document.getElementById("weather-img").src = "images/cloudy.png";
+        }
+    } else if (imageInfo === "Clear") {
+        document.getElementById("weather-img").src = "images/sunny.png";
+    } else if (imageInfo === "Snow") {
+        document.getElementById("weather-img").src = "images/snowy.png";
+    } else if (imageInfo === "Rain") {
+        document.getElementById("weather-img").src = "images/rainy.png";
+    } else if (imageInfo === "Drizzle") {
+        document.getElementById("weather-img").src = "images/rainy.png";
+    } else if (imageInfo === "Thunderstorm") {
+        document.getElementById("weather-img").src = "images/lightning.png";
+    }
+}
 
 
