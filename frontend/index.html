@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 " charset="UTF-8">
-    <title>Weather App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <title>Vær app</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="container">
+        <h1 class = "title"> Vær app</h1>
         <div class="search">
             <input class="place" type="text" placeholder="Søk etter sted" spellcheck="false">
             <button class ="search-button"><img class ="search-img" src="images/search.png"> </button>
         </div>
 
         <div class="weather">
-            <img class ="weather-img" src="images/sunny.png" alt="snowy weather">
-            <p class ="temperature">20°c</p>
-            <p class = "city">Bergen</p>
+            <img class ="weather-img" id ="weather-img" src="images/sunny.png" >
+            <p id ="temperature">20°c</p>
+            <p id = "city">Bergen</p>
         </div>
     </div>
 
-
+<script src="script.js"></script>
 </body>
 </html>
