@@ -1,28 +1,38 @@
 import os
+import requests
 from typing import Union
 from fastapi import FastAPI
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 app = FastAPI()
 
-api_key = os.environ['API_KEY']
+# this allows for cross origin requests
+origins = ["*"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
-@app.get("/")
+
+api_key = os.environ['API_KEY']
+url = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=" + api_key
+
+
+@app.get("/ping")
 def pong():
     return "pong"
 
-@app.get("/test")
-def lol():
-    return api_key
-
-@app.get("/hello/{city}")
+@app.get("/weather/{city}")
 def read_root(city):
-    # Hent data fra openweather
-    # Plukk ut det som er nyttig
-    # returner det
-    return {"Hello": f"{name}"}
+    completeUrl = f"{url}&q={city}"
+    response = requests.get(completeUrl).json()
+    temp = response["main"]["temp"]
+    imageInfo = response["weather"][0]["main"]
+    description = response["weather"][0]["description"]
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+    return {"temperature": temp, "imageInfo": imageInfo, "description": description}

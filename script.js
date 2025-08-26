@@ -1,7 +1,4 @@
-// saving the start of the url as a constant
-const url = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
-// here you should put your own api key
-const key = ""; // <- put API key here
+
 // the search button
 const searchButton = document.querySelector(".search-button");
 searchButton.addEventListener("click", () =>{
@@ -11,7 +8,7 @@ searchButton.addEventListener("click", () =>{
 function searchWeather() {
     city = document.querySelector(".place").value;
     // sends a get request to the url and returns a promise with a response
-    fetch(url + city + "&appid=" + key)
+    fetch(`http://localhost:8000/weather/${city}`)
         // this uses the response in the promise when it arrives
         .then(response => {
             handleError(response);
@@ -19,8 +16,8 @@ function searchWeather() {
         })
         .then(data => {
             changeImage(data);
-            document.getElementById("city").innerHTML = data.name;
-            document.getElementById("temperature").innerHTML = Math.round(data.main.temp) + "°c";
+            document.getElementById("city").innerHTML = city;
+            document.getElementById("temperature").innerHTML = Math.round(data.temperature) + "°c";
         })
         .catch(error => {
             console.error('Fetch error:', error); // Handle any errors
@@ -42,9 +39,9 @@ function handleError(response) {
 }
 
 function changeImage(data) {
-    imageInfo = data.weather[0].main;
+    imageInfo = data.imageInfo;
     if (imageInfo === "Clouds") {
-        description = data.weather[0].description;
+        description = data.description;
         if (description === "few clouds") {
             document.getElementById("weather-img").src = "images/partly_cloudy.png";
         } else {

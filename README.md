@@ -1,12 +1,15 @@
+
+# Weather App
+--------------------
+* Learning how to make a weather app with HTML, CSS and JavaScript.
+* Practising backend development
+
 ## Important info
-To use the app, you need your own API key to get weather-data, and put it in the script
+* To use the app, you need your own API key to get weather-data. You need to put this in .env
+* Backend was developed with python 3.12.2
 
-Backend was developed with python 3.12.2
+### Environment variables needed
+    API_KEY=<my-apikey>
 
-## Weather App
-* Trying to make a weather app
-* Learning how to make a weather app with HTML, CSS and     JavaScript.
-* Practising API calls
-
-# Image Credits
+## Image Credits
 Images designed by me
