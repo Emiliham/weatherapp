@@ -3,13 +3,13 @@ import requests
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
-from databasemaker import make_database, increase_use, limit_exceeded
+from backend.database import create_daily_use_table, increase_use, limit_exceeded
 
 load_dotenv()
 app = FastAPI()
 
-# make the database
-make_database()
+# make the table
+create_daily_use_table()
 
 # this allows for cross origin requests
 origins = ["*"]

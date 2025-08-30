@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import date
 
-def make_database():
+def create_daily_use_table():
     #here it creates the database
     conn = sqlite3.connect('mydatabase.db')
     cursor = conn.cursor()
