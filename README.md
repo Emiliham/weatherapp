@@ -2,7 +2,7 @@
 # Weather App
 --------------------
 * Learning how to make a weather app with HTML, CSS and JavaScript.
-* Practising backend development
+* Practising backend and frontend development
 
 ## Important info
 * To use the app, you need your own API key to get weather-data. You need to put this in .env
