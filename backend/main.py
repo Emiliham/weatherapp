@@ -3,7 +3,7 @@ import requests
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
-from backend.database import create_daily_use_table, increase_use, limit_exceeded
+from database import create_daily_use_table, increase_use, limit_exceeded
 
 load_dotenv()
 app = FastAPI()
