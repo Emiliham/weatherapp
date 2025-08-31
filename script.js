@@ -8,7 +8,7 @@ searchButton.addEventListener("click", () =>{
 function searchWeather() {
     city = document.querySelector(".place").value;
     // sends a get request to the url and returns a promise with a response
-    fetch(`http://hamang.dev/weather-api/weather/${city}`)
+    fetch(`https://hamang.dev/weather-api/weather/${city}`)
         // this uses the response in the promise when it arrives
         .then(response => {
             handleError(response);
